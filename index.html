@@ -1,0 +1,119 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" type="text/css" media="screen" href="css/ionicons.min.css">
+
+  <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+            <script>window.html5 || document.write('<script src="js/vendor/html5shiv.js"><\/script>')</script><![endif]-->
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+
+      <div class="card col-md-12 bg-info mb-2 p-1">
+        <div class="card-body p-1">
+          <h2 class="card-title text-center text-light font-weight-bold">Peticionador HTTP</h2>
+
+        </div>
+      </div>
+    </div>
+    <div class="row">
+
+      <div class="card col-md-12 bg-info">
+        <div class="card-body">
+          <!-- <div class="row text-light">
+            <div class="col-md-1 text-center mb-sm">Método</div>
+            <div class="col-md-4 text-center mb-sm">Dominio</div>
+            <div class="col-md-6 text-center mb-sm">URL</div>
+          </div> -->
+          <div class="row ">
+            <div class="input-group col-md-12">
+              <select id="select" class="bg-light input-group-addon col-md-1 border-0 font-weight-bold ">
+                <option value="" class="font-weight-bold">GET</option>
+                <option value="" class="font-weight-bold">POST</option>
+              </select>
+              <span class="input-group-addon col-md-4"><input type="text" class="input-group-addon form-control bg-light text-left" placeholder="https://www.google.com.ar/" aria-label="Amount (to the nearest dollar)"></span>
+              <span class="input-group-addon col-md-6"><input type="text" class="input-group-addon form-control bg-light text-left" placeholder="Ingrese la URL del Request" aria-label="Amount (to the nearest dollar)"></span>
+              <span class="input-group-addon col-md-1">
+                <button type="button" class="btn btn-primary col-md-12"><i class="ion-log-in"></i></button>
+              </span>
+            </div>
+            <div class="col-md-12">
+              <nav class="nav bg-dark nav-tabs border border-top-0 border-bottom-0 border-secondary" id="myTab" role="tablist">
+                <a class="nav-item nav-link active col-md-6 bg-secondary border-0 text-light text-center font-weight-bold" id="nav-body-tab" data-toggle="tab"
+                  href="#nav-body" role="tab" aria-controls="nav-body">BODY</a>
+                <a class="nav-item nav-link  bg-dark text-light border-0 col-md-6 text-center font-weight-bold" id="nav-header-tab"
+                  data-toggle="tab" href="#nav-header" role="tab" aria-controls="nav-header" aria-expanded="true">HEADER</a>
+              </nav>
+
+              <div class="tab-content border border-top-0 border-secondary pb-0" id="nav-tabContent">
+                <div class="tab-pane fade show active bg-secondary" id="nav-body" role="tabpanel" aria-labelledby="nav-body-tab">
+                  <div class="col-md-12 pt-1  pl-1 pr-1">
+                    <textarea id="textarea" class="col-md-12 bg-light" rows="10"></textarea>
+                  </div>
+                </div>
+                <div class="tab-pane fade bg-dark" id="nav-header" role="tabpanel" aria-labelledby="nav-header-tab">
+                  <div class="col-md-12 p-1">
+                    <table class="table table-hover table-striped table-inverse table-responsive pt-1">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Propiedad</th>
+                          <th>Valor</th>
+                          <th>Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>1</th>
+                          <td>token_id</td>
+                          <td><input type="text" class="input-group-addon  form-control bg-secundary text-left" placeholder="Valor de la propiedad"
+                              aria-label="Valor de la propiedad"></td>
+                          <td class="justify-content-end"><button type="button" class="btn btn-primary">X</button></td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <div class="row justify-content-end">
+                      <div class="col-md-1">
+                        <button type="button" class="btn btn-success col-md-12 mr-2"><i class="ion-plus-round"></i></button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+
+      <div class="col-md-12 card bg-dark">
+        <div class="card-body">
+          <h5 class="card-title text-light">Respuesta</h5>
+          <textarea id="textarea" class="col-md-12 bg-light" rows="10"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /container -->
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+</body>
+
+</html>
