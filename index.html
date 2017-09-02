@@ -16,7 +16,7 @@
 </head>
 
 <body>
-  <div class="container">
+  <div class="container" id="petitioner">
     <div class="row">
 
       <div class="card col-md-12 bg-info mb-2 p-1">
@@ -37,58 +37,80 @@
           </div> -->
           <div class="row ">
             <div class="input-group col-md-12">
-              <select id="select" class="bg-light input-group-addon col-md-1 border-0 font-weight-bold ">
-                <option value="" class="font-weight-bold">GET</option>
-                <option value="" class="font-weight-bold">POST</option>
+              <select id="select" v-model="request.method" class="bg-light input-group-addon col-md-1 border-0 font-weight-bold ">
+                <option value="GET" class="font-weight-bold">GET</option>
+                <option value="POST" class="font-weight-bold">POST</option>
               </select>
-              <span class="input-group-addon col-md-4"><input type="text" class="input-group-addon form-control bg-light text-left" placeholder="https://www.google.com.ar/" aria-label="Amount (to the nearest dollar)"></span>
-              <span class="input-group-addon col-md-6"><input type="text" class="input-group-addon form-control bg-light text-left" placeholder="Ingrese la URL del Request" aria-label="Amount (to the nearest dollar)"></span>
+
+              <span class="input-group-addon col-md-4">
+                <input type="text" 
+                class="input-group-addon form-control bg-light text-left" v-model="request.domain" placeholder="https://www.google.com.ar/" aria-label="Amount (to the nearest dollar)">
+              </span>
+
+              <span class="input-group-addon col-md-6">
+                <input type="text" autofocus
+                class="input-group-addon form-control bg-light text-left" v-model="request.url" placeholder="Ingrese la URL del Request" aria-label="Amount (to the nearest dollar)">
+              </span>
+
               <span class="input-group-addon col-md-1">
-                <button type="button" class="btn btn-primary col-md-12"><i class="ion-log-in"></i></button>
+                <button type="button" class="btn btn-primary col-md-12" v-on:click="validarDatos()" ><i class="ion-log-in"></i></button>
               </span>
             </div>
             <div class="col-md-12">
               <nav class="nav bg-dark nav-tabs border border-top-0 border-bottom-0 border-secondary" id="myTab" role="tablist">
-                <a class="nav-item nav-link active col-md-6 bg-secondary border-0 text-light text-center font-weight-bold" id="nav-body-tab" data-toggle="tab"
-                  href="#nav-body" role="tab" aria-controls="nav-body">BODY</a>
-                <a class="nav-item nav-link  bg-dark text-light border-0 col-md-6 text-center font-weight-bold" id="nav-header-tab"
-                  data-toggle="tab" href="#nav-header" role="tab" aria-controls="nav-header" aria-expanded="true">HEADER</a>
+                <a class="nav-item nav-link active col-md-6 bg-secondary border-0 text-light text-center font-weight-bold" id="nav-body-tab"
+                  data-toggle="tab" href="#nav-body" role="tab" aria-controls="nav-body">BODY</a>
+                <a class="nav-item nav-link  bg-dark text-light border-0 col-md-6 text-center font-weight-bold" id="nav-header-tab" data-toggle="tab"
+                  href="#nav-header" role="tab" aria-controls="nav-header" aria-expanded="true">HEADER</a>
               </nav>
 
               <div class="tab-content border border-top-0 border-secondary pb-0" id="nav-tabContent">
                 <div class="tab-pane fade show active bg-secondary" id="nav-body" role="tabpanel" aria-labelledby="nav-body-tab">
                   <div class="col-md-12 pt-1  pl-1 pr-1">
-                    <textarea id="textarea" class="col-md-12 bg-light" rows="10"></textarea>
+                    <textarea v-model="request.data" id="textarea" class="col-md-12 bg-light" rows="10"></textarea>
                   </div>
                 </div>
                 <div class="tab-pane fade bg-dark" id="nav-header" role="tabpanel" aria-labelledby="nav-header-tab">
-                  <div class="col-md-12 p-1">
-                    <table class="table table-hover table-striped table-inverse table-responsive pt-1">
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>Propiedad</th>
-                          <th>Valor</th>
-                          <th>Acciones</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th>1</th>
-                          <td>token_id</td>
-                          <td><input type="text" class="input-group-addon  form-control bg-secundary text-left" placeholder="Valor de la propiedad"
-                              aria-label="Valor de la propiedad"></td>
-                          <td class="justify-content-end"><button type="button" class="btn btn-primary">X</button></td>
-                        </tr>
-                      </tbody>
-                    </table>
+                  <div class="container p-1">
+                    <div class="row">
+                      <div class="col-md-1"></div>
+                      <div class="col-md-10">
+                        <table class="table table-sm table-hover table-striped table-inverse table-responsive  ">
+                          <thead>
+                            <tr>
+                              <th class="text-center">Propiedad</th>
+                              <th class="text-center">Valor</th>
+                              <th class="text-center">Acciones</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr v-for="(requestHeaderDetail, index) in requestHeaders">
+                              <td><input type="text" v-model="requestHeaderDetail.nombre" class="input-group-addon  form-control bg-secundary text-left"
+                                  placeholder="Nombre de la propiedad" aria-label="Nombre de la propiedad"></td>
+                              <td><input type="text" v-model="requestHeaderDetail.valor" class="input-group-addon  form-control bg-secundary text-left"
+                                  placeholder="Valor de la propiedad" aria-label="Valor de la propiedad"></td>
+                              <td class="text-center">
+                                <button v-on:click="requestHeaderDetail.activado = !requestHeaderDetail.activado" type="button" class="btn mt-1 btn-sm btn-primary"
+                                  :class="requestHeaderDetail.activado? 'btn-success' : 'btn-secondary'">
+                              <i :class="requestHeaderDetail.activado? 'ion-ios-checkmark-outline' : 'ion-ios-circle-outline'"></i>
+                            </button>
 
-                    <div class="row justify-content-end">
-                      <div class="col-md-1">
-                        <button type="button" class="btn btn-success col-md-12 mr-2"><i class="ion-plus-round"></i></button>
+                                <button v-on:click="borrarHeaderReq(index)" type="button" class="btn mt-1 btn-sm btn-danger">
+                             <i class="ion-backspace"></i>
+                            </button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </div>
+                    <div class="row">
+                      <div class="col-md-11"></div>
 
+                      <div class="col-md-1 ">
+                        <button type="button" v-on:click="crearHeaderReq()" class="btn btn-success col-md-12 mr-2"><i class="ion-plus-round"></i></button>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -102,16 +124,17 @@
 
       <div class="col-md-12 card bg-dark">
         <div class="card-body">
-          <h5 class="card-title text-light">Respuesta</h5>
-          <textarea id="textarea" class="col-md-12 bg-light" rows="10"></textarea>
+          <h5 class="card-title text-info">Respuesta</h5>
+          <textarea v-model="resBody" id="textarea" class="col-md-12 bg-light" rows="10"></textarea>
         </div>
       </div>
     </div>
   </div>
   <!-- /container -->
 
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="js/vue.js"></script>
+  <script src="js/main.js"></script>
   <script src="js/popper.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
 </body>
