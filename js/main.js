@@ -5,7 +5,8 @@ var vm = new Vue({
         request: { domain: '', url: '', method: 'GET', data: '', headers: [] },
         requestHeaders: [{ nombre: '', valor: '', activado: true }],
         resBody: '',
-        responseHeaders: []
+        responseHeaders: [],
+        error: false,
     },
     methods: {
         crearHeaderReq() { this.requestHeaders.push({ nombre: '', valor: '', activado: true }); },
@@ -24,29 +25,55 @@ var vm = new Vue({
                 if (this.request.domain[this.request.domain.length - 1] !== '/' && this.request.url[0] !== '/') {
                     this.request.domain += '/';
                 }
-                if (this.request.domain === 'test/') { this.request.domain = './LICENSE' }
-                $.ajax({
-                    url: '' + this.request.domain + this.request.url,
-                    method: this.request.method,
-                    success: (data) => {
-                        this.resBody = data;
-                    },
-                    error: (data) => {
-                        this.resBody = data;
-                    },
-                });
+                if (this.request.domain === 'test/') {
+                    this.request.domain = 'http://localhost:3000/api/';
+                    this.request.url = 'prestaciones';
+                    this.request.headers = [
+                        { nombre: 'Content-Type', valor: 'application/json', activado: true },
+                        { nombre: 'Clinica', valor: '58eecc0ae5009321d21d8561', activado: true },
+                        { nombre: 'Authorization', valor: 'FuNEwmxN7VG7sqJiODtwApXGPy1RTpcJYvYcNZGnWF5oMnYMNKaIrTCiX2DOe5K6', activado: true }];
+                    this.requestHeaders = this.request.headers;
+                }
+                if (this.request.domain === 'testpost/') {
+                    this.request.domain = 'http://localhost:3000/api/';
+                    this.request.url = 'prestaciones';
+                    this.request.data = JSON.stringify(
+                        { "codigo": "pruebasHTTPSanti", 
+                        "nombre": "pruebasHTTPSanti", 
+                        "clinicaId": "58eecc0ae5009321d21d8561", 
+                        "capituloId": "58d194cf24643f1a3851fa25", 
+                        "prestacionGenericaId": "58d1954c24643f1a3851fa27" });
+                    this.request.headers = [
+                        { nombre: 'Content-Type', valor: 'application/json', activado: true },
+                        { nombre: 'Clinica', valor: '58eecc0ae5009321d21d8561', activado: true },
+                        { nombre: 'Authorization', valor: 'FuNEwmxN7VG7sqJiODtwApXGPy1RTpcJYvYcNZGnWF5oMnYMNKaIrTCiX2DOe5K6', activado: true }];
+                    this.requestHeaders = this.request.headers;
+                }
+                this.realizarPeticion();
             }
 
+        },
+        realizarPeticion() {
+            const headerOBJ = {};
+            this.request.headers.map((x) => { headerOBJ[x.nombre] = x.valor });
+
+            $.ajax({
+                url: '' + this.request.domain + this.request.url,
+                method: this.request.method,
+                data: this.request.data,
+                headers: headerOBJ,
+                success: (data) => {
+                    this.resBody = JSON.stringify(data).split(",").join(",\n");
+                },
+                error: (data) => {
+                    this.resBody = JSON.stringify(data);
+                },
+            });
+        },
+        esJsonString(txt) {
+            try { JSON.parse(txt); }
+            catch (e) { return false; }
+            return true;
         }
     }
 })
-
-function AJAXrequest() {
-    $.ajax()({
-        type: type,
-        url: url,
-        data: reqData,
-        dataType: 'json',
-        success: callback
-    });
-}
