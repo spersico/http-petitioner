@@ -26,27 +26,27 @@ var vm = new Vue({
                     this.request.domain += '/';
                 }
                 if (this.request.domain === 'test/') {
-                    this.request.domain = 'http://localhost:3000/api/';
+                    this.request.domain = 'https://api.odonpad.com/api/';
                     this.request.url = 'prestaciones';
                     this.request.headers = [
                         { nombre: 'Content-Type', valor: 'application/json', activado: true },
-                        { nombre: 'Clinica', valor: '58eecc0ae5009321d21d8561', activado: true },
-                        { nombre: 'Authorization', valor: 'FuNEwmxN7VG7sqJiODtwApXGPy1RTpcJYvYcNZGnWF5oMnYMNKaIrTCiX2DOe5K6', activado: true }];
+                        { nombre: 'Clinica', valor: '59a59c88eac39554ef4de8ef', activado: true },
+                        { nombre: 'Authorization', valor: 'Ugbh6mHSgx7d3So6IlhEY6usvHJcPf4ECI9Y0zrrHVGbzxXs6e0CtOSWU3hQFaqR', activado: true }];
                     this.requestHeaders = this.request.headers;
                 }
                 if (this.request.domain === 'testpost/') {
-                    this.request.domain = 'http://localhost:3000/api/';
+                    this.request.domain = 'https://api.odonpad.com/api/';
                     this.request.url = 'prestaciones';
                     this.request.data = JSON.stringify(
                         { "codigo": "pruebasHTTPSanti", 
                         "nombre": "pruebasHTTPSanti", 
-                        "clinicaId": "58eecc0ae5009321d21d8561", 
+                        "clinicaId": "59a59c88eac39554ef4de8ef", 
                         "capituloId": "58d194cf24643f1a3851fa25", 
                         "prestacionGenericaId": "58d1954c24643f1a3851fa27" });
                     this.request.headers = [
                         { nombre: 'Content-Type', valor: 'application/json', activado: true },
-                        { nombre: 'Clinica', valor: '58eecc0ae5009321d21d8561', activado: true },
-                        { nombre: 'Authorization', valor: 'FuNEwmxN7VG7sqJiODtwApXGPy1RTpcJYvYcNZGnWF5oMnYMNKaIrTCiX2DOe5K6', activado: true }];
+                        { nombre: 'Clinica', valor: '59a59c88eac39554ef4de8ef', activado: true },
+                        { nombre: 'Authorization', valor: 'Ugbh6mHSgx7d3So6IlhEY6usvHJcPf4ECI9Y0zrrHVGbzxXs6e0CtOSWU3hQFaqR', activado: true }];
                     this.requestHeaders = this.request.headers;
                 }
                 this.realizarPeticion();
