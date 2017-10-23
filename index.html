@@ -43,17 +43,19 @@
               </select>
 
               <span class="input-group-addon col-md-4">
-                <input type="text" 
-                class="input-group-addon form-control bg-light text-left" v-model="request.domain" placeholder="https://www.google.com.ar/" aria-label="Amount (to the nearest dollar)">
+                <input type="text" class="input-group-addon form-control bg-light text-left" v-model="request.domain" placeholder="https://www.google.com.ar/"
+                  aria-label="Amount (to the nearest dollar)">
               </span>
 
               <span class="input-group-addon col-md-6">
-                <input type="text" autofocus
-                class="input-group-addon form-control bg-light text-left" v-model="request.url" placeholder="Ingrese la URL del Request" aria-label="Amount (to the nearest dollar)">
+                <input type="text" autofocus class="input-group-addon form-control bg-light text-left" v-model="request.url" placeholder="Ingrese la URL del Request"
+                  aria-label="Amount (to the nearest dollar)">
               </span>
 
               <span class="input-group-addon col-md-1">
-                <button type="button" class="btn btn-primary col-md-12" v-on:click="validarDatos()" ><i class="ion-log-in"></i></button>
+                <button type="button" class="btn btn-primary col-md-12" v-on:click="validarDatos()">
+                  <i class="ion-log-in"></i>
+                </button>
               </span>
             </div>
             <div class="col-md-12">
@@ -66,8 +68,23 @@
 
               <div class="tab-content border border-top-0 border-secondary pb-0" id="nav-tabContent">
                 <div class="tab-pane fade show active bg-secondary" id="nav-body" role="tabpanel" aria-labelledby="nav-body-tab">
-                  <div class="col-md-12 pt-1  pl-1 pr-1">
+                  <div class="col-md-12 pt-1  pl-1 pr-1" v-if="!archivo">
                     <textarea v-model="request.data" id="textarea" class="col-md-12 bg-light" rows="10"></textarea>
+                  </div>
+                  <div class="col-md-12 pt-1  p-1">
+                    <div class="container">
+                      <div class="row bg-light p-1" >
+                        <div class="col-md-9">
+                          <input type="file" v-on:change="cargarArchivo($event)" id="inputArchivo">
+                        </div>
+                        <div class="col-md-3" v-if="archivo">
+                          
+                          <button type="button" v-on:click="borrarArchivo()" class="btn btn-block btn-danger">
+                            <i class="ion-backspace"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="tab-pane fade bg-dark" id="nav-header" role="tabpanel" aria-labelledby="nav-header-tab">
@@ -85,19 +102,23 @@
                           </thead>
                           <tbody>
                             <tr v-for="(requestHeaderDetail, index) in requestHeaders">
-                              <td><input type="text" v-model="requestHeaderDetail.nombre" class="input-group-addon  form-control bg-secundary text-left"
-                                  placeholder="Nombre de la propiedad" aria-label="Nombre de la propiedad"></td>
-                              <td><input type="text" v-model="requestHeaderDetail.valor" class="input-group-addon  form-control bg-secundary text-left"
-                                  placeholder="Valor de la propiedad" aria-label="Valor de la propiedad"></td>
+                              <td>
+                                <input type="text" v-model="requestHeaderDetail.nombre" class="input-group-addon  form-control bg-secundary text-left" placeholder="Nombre de la propiedad"
+                                  aria-label="Nombre de la propiedad">
+                              </td>
+                              <td>
+                                <input type="text" v-model="requestHeaderDetail.valor" class="input-group-addon  form-control bg-secundary text-left" placeholder="Valor de la propiedad"
+                                  aria-label="Valor de la propiedad">
+                              </td>
                               <td class="text-center">
                                 <button v-on:click="requestHeaderDetail.activado = !requestHeaderDetail.activado" type="button" class="btn mt-1 btn-sm btn-primary"
                                   :class="requestHeaderDetail.activado? 'btn-success' : 'btn-secondary'">
-                              <i :class="requestHeaderDetail.activado? 'ion-ios-checkmark-outline' : 'ion-ios-circle-outline'"></i>
-                            </button>
+                                  <i :class="requestHeaderDetail.activado? 'ion-ios-checkmark-outline' : 'ion-ios-circle-outline'"></i>
+                                </button>
 
                                 <button v-on:click="borrarHeaderReq(index)" type="button" class="btn mt-1 btn-sm btn-danger">
-                             <i class="ion-backspace"></i>
-                            </button>
+                                  <i class="ion-backspace"></i>
+                                </button>
                               </td>
                             </tr>
                           </tbody>
@@ -108,7 +129,9 @@
                       <div class="col-md-11"></div>
 
                       <div class="col-md-1 ">
-                        <button type="button" v-on:click="crearHeaderReq()" class="btn btn-success col-md-12 mr-2"><i class="ion-plus-round"></i></button>
+                        <button type="button" v-on:click="crearHeaderReq()" class="btn btn-success col-md-12 mr-2">
+                          <i class="ion-plus-round"></i>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -132,7 +155,7 @@
   </div>
   <!-- /container 
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
-  
+
   <script src="js/jquery-3.2.1.min.js"></script>
   <script src="js/vue.js"></script>
   <script src="js/main.js"></script>
