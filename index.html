@@ -1,166 +1,163 @@
 <!doctype html>
 <html class="no-js" lang="">
-
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title></title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" type="text/css" media="screen" href="css/ionicons.min.css">
-
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Generador de peticiones HTTP</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="css/ionicons.min.css"> 
   <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
             <script>window.html5 || document.write('<script src="js/vendor/html5shiv.js"><\/script>')</script><![endif]-->
-</head>
+    </head>
 
-<body>
-  <div class="container" id="petitioner">
-    <div class="row">
-
-      <div class="card col-md-12 bg-info mb-2 p-1">
-        <div class="card-body p-1">
-          <h2 class="card-title text-center text-light font-weight-bold">Peticionador HTTP</h2>
-
-        </div>
-      </div>
-    </div>
-    <div class="row">
-
-      <div class="card col-md-12 bg-info">
-        <div class="card-body">
-          <!-- <div class="row text-light">
-            <div class="col-md-1 text-center mb-sm">Método</div>
-            <div class="col-md-4 text-center mb-sm">Dominio</div>
-            <div class="col-md-6 text-center mb-sm">URL</div>
-          </div> -->
-          <div class="row ">
-            <div class="input-group col-md-12">
-              <select id="select" v-model="request.method" class="bg-light input-group-addon col-md-1 border-0 font-weight-bold ">
-                <option value="GET" class="font-weight-bold">GET</option>
-                <option value="POST" class="font-weight-bold">POST</option>
-              </select>
-
-              <span class="input-group-addon col-md-4">
-                <input type="text" class="input-group-addon form-control bg-light text-left" v-model="request.domain" placeholder="https://www.google.com.ar/"
-                  aria-label="Amount (to the nearest dollar)">
-              </span>
-
-              <span class="input-group-addon col-md-6">
-                <input type="text" autofocus class="input-group-addon form-control bg-light text-left" v-model="request.url" placeholder="Ingrese la URL del Request"
-                  aria-label="Amount (to the nearest dollar)">
-              </span>
-
-              <span class="input-group-addon col-md-1">
-                <button type="button" class="btn btn-primary col-md-12" v-on:click="validarDatos()">
-                  <i class="ion-log-in"></i>
-                </button>
-              </span>
+    <body>
+        
+        <div class="container" id="petitioner">
+            
+            <div class="row">
+                <div class="jumbotron col-md-12 bg-black-4">
+                    <h2 class="text-center text-light font-weight-bold">Generador de peticiones HTTP</h2>
+                </div>
             </div>
-            <div class="col-md-12">
-              <nav class="nav bg-dark nav-tabs border border-top-0 border-bottom-0 border-secondary" id="myTab" role="tablist">
-                <a class="nav-item nav-link active col-md-6 bg-secondary border-0 text-light text-center font-weight-bold" id="nav-body-tab"
-                  data-toggle="tab" href="#nav-body" role="tab" aria-controls="nav-body">BODY</a>
-                <a class="nav-item nav-link  bg-dark text-light border-0 col-md-6 text-center font-weight-bold" id="nav-header-tab" data-toggle="tab"
-                  href="#nav-header" role="tab" aria-controls="nav-header" aria-expanded="true">HEADER</a>
-              </nav>
+            
+            <div class="row">
+                <div class="card col-md-12 bg-black-4">
+                    <div class="card-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <select id="select" v-model="request.method" class="btn btn-light col-md-12 border-0 font-weight-bold">
+                                        <option value="GET" class="font-weight-bold">GET</option>
+                                        <option value="POST" class="font-weight-bold">POST</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" class=form-control bg-light text-left v-model="request.domain" placeholder="Ingrese el dominio" aria-label="Amount (to the nearest dollar)">
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" autofocus class="form-control bg-light text-left" v-model="request.url" placeholder="Ingrese la URL" aria-label="Amount (to the nearest dollar)">
+                                </div>
+                                <div class="col-md-1">
+                                    <button type="button" class="btn btn-primary col-md-12" v-on:click="validarDatos()">
+                                        <i class="ion-log-in"></i>
+                                    </button>
+                                </div>  
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="container">
+                                    <ul class="nav nav-pills nav-fill" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" data-toggle="pill" href="#tab-header">Header</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="pill" href="#tab-body">Body</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div id="tab-header" class="tab-pane active">
+                                            
+                                        </div>
+                                        <div id="tab-body" class="tab-pane">
+                                            <div class="container bg-black-6">
+                                                <br>
+                                                <div v-if="!archivo">
+                                                    <textarea v-model="request.data" id="textarea" class="form-control col-md-12 bg-light" rows="10"></textarea>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-md-9">
+                                                        <input type="file" v-on:change="cargarArchivo($event)" id="inputArchivo">
+                                                    </div>
+                                                    <div class="col-md-3" v-if="archivo">
+                                                        <button type="button" v-on:click="borrarArchivo()" class="btn btn-block btn-danger">
+                                                            <i class="ion-backspace"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade bg-dark" id="nav-header" role="tabpanel" aria-labelledby="nav-header-tab">
+                              <div class="container p-1">
+                                <div class="row">
+                                  <div class="col-md-1"></div>
+                                  <div class="col-md-10">
+                                    <table class="table table-sm table-hover table-striped table-inverse table-responsive  ">
+                                      <thead>
+                                        <tr>
+                                          <th class="text-center">Propiedad</th>
+                                          <th class="text-center">Valor</th>
+                                          <th class="text-center">Acciones</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr v-for="(requestHeaderDetail, index) in requestHeaders">
+                                          <td>
+                                            <input type="text" v-model="requestHeaderDetail.nombre" class="input-group-addon  form-control bg-secundary text-left" placeholder="Nombre de la propiedad"
+                                              aria-label="Nombre de la propiedad">
+                                          </td>
+                                          <td>
+                                            <input type="text" v-model="requestHeaderDetail.valor" class="input-group-addon  form-control bg-secundary text-left" placeholder="Valor de la propiedad"
+                                              aria-label="Valor de la propiedad">
+                                          </td>
+                                          <td class="text-center">
+                                            <button v-on:click="requestHeaderDetail.activado = !requestHeaderDetail.activado" type="button" class="btn mt-1 btn-sm btn-primary"
+                                              :class="requestHeaderDetail.activado? 'btn-success' : 'btn-secondary'">
+                                              <i :class="requestHeaderDetail.activado? 'ion-ios-checkmark-outline' : 'ion-ios-circle-outline'"></i>
+                                            </button>
 
-              <div class="tab-content border border-top-0 border-secondary pb-0" id="nav-tabContent">
-                <div class="tab-pane fade show active bg-secondary" id="nav-body" role="tabpanel" aria-labelledby="nav-body-tab">
-                  <div class="col-md-12 pt-1  pl-1 pr-1" v-if="!archivo">
-                    <textarea v-model="request.data" id="textarea" class="col-md-12 bg-light" rows="10"></textarea>
-                  </div>
-                  <div class="col-md-12 pt-1  p-1">
-                    <div class="container">
-                      <div class="row bg-light p-1" >
-                        <div class="col-md-9">
-                          <input type="file" v-on:change="cargarArchivo($event)" id="inputArchivo">
+                                            <button v-on:click="borrarHeaderReq(index)" type="button" class="btn mt-1 btn-sm btn-danger">
+                                              <i class="ion-backspace"></i>
+                                            </button>
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+                                <div class="row">
+                                  <div class="col-md-11"></div>
+
+                                  <div class="col-md-1 ">
+                                    <button type="button" v-on:click="crearHeaderReq()" class="btn btn-success col-md-12 mr-2">
+                                      <i class="ion-plus-round"></i>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>
+                            </div>
                         </div>
-                        <div class="col-md-3" v-if="archivo">
-                          
-                          <button type="button" v-on:click="borrarArchivo()" class="btn btn-block btn-danger">
-                            <i class="ion-backspace"></i>
-                          </button>
-                        </div>
-                      </div>
                     </div>
-                  </div>
                 </div>
-                <div class="tab-pane fade bg-dark" id="nav-header" role="tabpanel" aria-labelledby="nav-header-tab">
-                  <div class="container p-1">
-                    <div class="row">
-                      <div class="col-md-1"></div>
-                      <div class="col-md-10">
-                        <table class="table table-sm table-hover table-striped table-inverse table-responsive  ">
-                          <thead>
-                            <tr>
-                              <th class="text-center">Propiedad</th>
-                              <th class="text-center">Valor</th>
-                              <th class="text-center">Acciones</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr v-for="(requestHeaderDetail, index) in requestHeaders">
-                              <td>
-                                <input type="text" v-model="requestHeaderDetail.nombre" class="input-group-addon  form-control bg-secundary text-left" placeholder="Nombre de la propiedad"
-                                  aria-label="Nombre de la propiedad">
-                              </td>
-                              <td>
-                                <input type="text" v-model="requestHeaderDetail.valor" class="input-group-addon  form-control bg-secundary text-left" placeholder="Valor de la propiedad"
-                                  aria-label="Valor de la propiedad">
-                              </td>
-                              <td class="text-center">
-                                <button v-on:click="requestHeaderDetail.activado = !requestHeaderDetail.activado" type="button" class="btn mt-1 btn-sm btn-primary"
-                                  :class="requestHeaderDetail.activado? 'btn-success' : 'btn-secondary'">
-                                  <i :class="requestHeaderDetail.activado? 'ion-ios-checkmark-outline' : 'ion-ios-circle-outline'"></i>
-                                </button>
+            </div>
+        <div class="row">
 
-                                <button v-on:click="borrarHeaderReq(index)" type="button" class="btn mt-1 btn-sm btn-danger">
-                                  <i class="ion-backspace"></i>
-                                </button>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-11"></div>
-
-                      <div class="col-md-1 ">
-                        <button type="button" v-on:click="crearHeaderReq()" class="btn btn-success col-md-12 mr-2">
-                          <i class="ion-plus-round"></i>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
+          <div class="col-md-12 card bg-dark">
+            <div class="card-body">
+              <h5 class="card-title text-info">Respuesta</h5>
+              <textarea v-model="resBody" id="textarea" class="col-md-12 bg-light" rows="10"></textarea>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="row">
+      <!-- /container 
+      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
 
-      <div class="col-md-12 card bg-dark">
-        <div class="card-body">
-          <h5 class="card-title text-info">Respuesta</h5>
-          <textarea v-model="resBody" id="textarea" class="col-md-12 bg-light" rows="10"></textarea>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- /container 
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
-
-  <script src="js/jquery-3.2.1.min.js"></script>
-  <script src="js/vue.js"></script>
-  <script src="js/main.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-</body>
+      <script src="js/jquery-3.2.1.min.js"></script>
+      <script src="js/vue.js"></script>
+      <script src="js/main.js"></script>
+      <script src="js/popper.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+    </body>
 
 </html>

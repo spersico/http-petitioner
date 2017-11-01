@@ -4,6 +4,13 @@ body {
     background: url(../img/bg.jpg)
 }
 
+.bg-black-4{
+    background-color:rgba(0,0,0,0.4) !important;
+}
+
+.bg-black-6{
+    background-color:rgba(0,0,0,0.6) !important;
+}
 
 
 
