@@ -4,22 +4,57 @@ body {
     background: url(../img/bg.jpg)
 }
 
-.bg-black-4{
-    background-color:rgba(0,0,0,0.4) !important;
-}
-
-.bg-black-6{
+.bg-black-5{
     background-color:rgba(0,0,0,0.6) !important;
 }
 
+.bg-black-8{
+    background-color:rgba(0,0,0,0.7) !important;
+}
 
+.table-black {
+    color: #fff;
+    background-color: transparent;
+}
 
+.table-black th,
+.table-black td {
+    border-top: 1px solid grey;
+}
 
+.table-black thead th{
+    border-bottom: 2px solid grey;
+}
 
+.scrolleable{
+    overflow-y: scroll;
+}
 
+.nav-pills-black .nav-link {
+  border-radius: 0.25rem;
+  background-color: rgba(0,0,0,0.8);
+  color: #064E72;
+  font-weight: bold;
+  font-size: 1.15em;
+}
 
+.nav-pills-black .nav-link.active,
+.show > .nav-pills-black .nav-link {
+  color: #fff;
+  background-color: #064E72;
+}
 
+input.transparent{
+    background-color: transparent !important;
+    border: 0;
+    box-shadow: none;
+    color: white;
+}
 
+.container .radius{
+    border-radius: 0.25rem;
+}
 
-
-
+.bg-whitesmoke{
+    background-color: whitesmoke;
+}

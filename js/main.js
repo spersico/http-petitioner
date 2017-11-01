@@ -1,21 +1,25 @@
-
 var vm = new Vue({
     el: '#petitioner',
     data: {
         request: { domain: '', url: '', method: 'GET', data: '', headers: [] },
-        requestHeaders: [{ nombre: '', valor: '', activado: true }],
+        requestHeaders: [],
         resBody: '',
         responseHeaders: [],
         error: false,
         archivo: false,
+        height: (screen.height*0.5),
+        newRequestHeader: {nombre:'', valor:''}
     },
     methods: {
-        crearHeaderReq() { this.requestHeaders.push({ nombre: '', valor: '', activado: true }); },
+        crearHeaderReq() {
+            if(this.newRequestHeader.nombre === '' || this.newRequestHeader.valor === '')
+                return false;
+            this.requestHeaders.push({ nombre: this.newRequestHeader.nombre, valor: this.newRequestHeader.valor, activado: true, focus: false });
+            this.newRequestHeader.nombre = '';
+            this.newRequestHeader.valor = '';
+        },
         borrarHeaderReq(i) {
             this.requestHeaders.splice(i, 1);
-            if (this.requestHeaders.length === 0) {
-                this.crearHeaderReq();
-            }
         },
         cargarArchivo(evento) {
             this.archivo = true;
