@@ -43,17 +43,12 @@
                                         <input type="text" class="form-control bg-light text-left" v-model="request.domain" placeholder="Ingrese el dominio" aria-label="Amount (to the nearest dollar)">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="ion ion-pound"></i></span>
                                         <input type="text" autofocus class="form-control bg-light text-left" v-model="request.url" placeholder="Ingrese la URL" aria-label="Amount (to the nearest dollar)">
                                     </div>
                                 </div>
-                                <div class="col-md-2">
-                                    <button type="button" class="btn btn-primary col-md-12" v-on:click="enviarPeticion()">
-                                        <i class="ion-log-in"> Enviar</i>
-                                    </button>
-                                </div>  
                             </div>
                             <br>
                             <div class="row">
@@ -170,13 +165,12 @@
                                         </div>
                                         <div id="tab-body" class="tab-pane">
                                             <div class="card bg-darkgray" v-bind:style="{height:heightPetition+'px'}">
-                                                <div class="card-body">
-                                                    <div v-if="!archivo">
-                                                        <textarea v-model="request.data" id="textarea" class="form-control col-md-12 bg-light" rows="10"></textarea>
+                                                <div class="card-body" style="height:inherit">
+                                                    <div v-if="!archivo" style="height:75%">
+                                                        <textarea v-model="request.data" id="textarea" class="form-control col-md-12 bg-light" style="height:100%"></textarea>
                                                     </div>
-                                                    <br>
-                                                    <div class="row">
-                                                        <div class="col-md-9">
+                                                    <div class="row" style="height:25%">
+                                                        <div class="col-md-9 pt-4">
                                                             <input type="file" v-on:change="cargarArchivo($event)" id="inputArchivo">
                                                         </div>
                                                         <div class="col-md-3" v-if="archivo">
@@ -186,18 +180,30 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <br>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="row mt-4">
+                                <div class="col-md-12 text-center">
+                                    <button type="button" class="btn btn-lg btn-primary col-md-4" v-on:click="enviarPeticion()">
+                                        <i class="ion-log-in"> Enviar</i>
+                                    </button>
+                                </div>  
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <br>
-            <div class="row">
+            <div class="row mt-4" v-show="cargando === true">
+                <div class="card col-md-12 bg-darkgreen">
+                    <div class="card-body text-center">
+                        <div><img src="img/loading.gif"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4" v-show="cargando === false">
                 <div class="card col-md-12 bg-darkgreen p-0">
                     <div class="card-header text-light font-weight-bold">
                         <div class="row mr-3">
@@ -273,6 +279,17 @@
         <script src="js/bootstrap.min.js"></script>
         <script src="js/shCore.js"></script>
         <script src="js/shBrushXml.js"></script>
+        
+        <script>
+            $(document).ajaxStart(function(){
+                vm.cargando = true;
+            });
+            $(document).ajaxComplete(function(){
+                setTimeout(function(){
+                    vm.cargando = false;
+                }, 1500);
+            });
+        </script>
         
     </body>
 

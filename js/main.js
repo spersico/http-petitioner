@@ -1,7 +1,7 @@
 var vm = new Vue({
     el: '#petitioner',
     data: {
-        request: { domain: '', url: '', method: 'GET', data: '', headers: [] },
+        request: { domain: '', url: '', method: 'GET', data: '', params: [], headers: [] },
         requestParams: [],
         requestHeaders: [],
         responseHeaders: [],
@@ -12,7 +12,8 @@ var vm = new Vue({
         archivo: false,
         error: false,
         heightPetition: (screen.height*0.5),
-        heightResponse: (screen.height*0.65)
+        heightResponse: (screen.height*0.65),
+        cargando: null
     },
     methods: {
         addKey(isParam){
@@ -43,15 +44,22 @@ var vm = new Vue({
         },
         validarReqHeader(reqHeader) { return reqHeader.activado && reqHeader.nombre !== '' && reqHeader.valor !== ''; },
         enviarPeticion() {
+            if(this.request.domain === '')
+            {
+                alert("Ingrese un dominio");
+                return;
+            }
+            this.request.params = [];
             this.request.headers = [];
-            this.requestHeaders.map((x) => { if (this.validarReqHeader(x)) { this.request.headers.push(x); } });
+            this.requestParams.map((x) => { if (this.validarReqHeader(x)) { this.request.params.push(x); }});
+            this.requestHeaders.map((x) => { if (this.validarReqHeader(x)) { this.request.headers.push(x); }}) ;
             this.sendHTTP();
         },
         sendHTTP(){
             const headerOBJ = {};
             this.request.headers.map((x) => { headerOBJ[x.nombre] = x.valor; });
             $.ajax({
-                url: '' + this.request.domain + this.request.url,
+                url: this.generarURL(),
                 method: this.request.method,
                 data: (this.request.method === 'GET')? '' : this.request.data,
                 headers: headerOBJ,
@@ -76,8 +84,14 @@ var vm = new Vue({
                 formatedText.html(this.responseBody.replace(/</g,"&lt;"));
                 $("#responseText").html(formatedText);
                 SyntaxHighlighter.highlight();
+                $("#responseFrame").attr("srcdoc", this.responseBody);
             }
-            $("#responseFrame").attr("srcdoc", this.responseBody);
+            else
+            {
+                $("#responseText").html("");
+                $("#responseFrame").attr("srcdoc", "");
+            }
+            
         },
         formatHeaders(text){
             var headers = {};
@@ -90,6 +104,26 @@ var vm = new Vue({
                     }
                 });
             return headers;
+        },
+        getString(object){
+            var string = "";
+            object.map((x) => { string = string + x.nombre + "=" +  x.valor + "&"; });
+            if(string !== "")
+                string = string.slice(0, -1);
+            return string;
+        },
+        generarURL(){
+            var domain = this.request.domain;
+            var url = this.request.url;
+            var params = this.request.params;
+            console.log(params);
+            var paramsString = this.getString(params);
+            var ret = domain;
+            if(url !== "")
+                ret = ret + "\\" + url;
+            if(paramsString !== "")
+                ret = ret + "?" + paramsString;
+            return ret;
         },
         esJsonString(txt) {
             try { JSON.parse(txt); }
