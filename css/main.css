@@ -90,4 +90,5 @@ input.transparent{
     height:100%;
     border-radius: 0.25rem;
     border: 1px solid transparent;
+    background-color: white;
 }
