@@ -56,25 +56,28 @@ var vm = new Vue({
                 data: (this.request.method === 'GET')? '' : this.request.data,
                 headers: headerOBJ,
                 success: function(data, status, xhr){
-                    this.error = false;
+                    vm.error = false;
                     vm.setResponse(data, status, xhr);
                 },
-                error: function(data, status, xhr){
-                    this.error = true;
-                    vm.setResponse(data, status, xhr);
+                error: function(xhr, status, error){
+                    vm.error = true;
+                    vm.setResponse(error, status, xhr);
                 }
             });
         },
         setResponse(data, status, xhr){
             this.responseHeaders = this.formatHeaders(xhr.getAllResponseHeaders());
             this.responseBody = xhr.responseText;
-            var formatedText = $("<pre class='brush: html'></pre>");
-            formatedText.html(this.responseBody.replace(/</g,"&lt;"));
-            $("#responseText").html(formatedText);
-            SyntaxHighlighter.highlight();
-            $("#responseFrame").attr("srcdoc", this.responseBody);
             this.statusResponse.status = xhr.status;
             this.statusResponse.statusText = xhr.statusText;
+            var formatedText = $("<pre class='brush: html'></pre>");
+            if(this.responseBody !== undefined)
+            {
+                formatedText.html(this.responseBody.replace(/</g,"&lt;"));
+                $("#responseText").html(formatedText);
+                SyntaxHighlighter.highlight();
+            }
+            $("#responseFrame").attr("srcdoc", this.responseBody);
         },
         formatHeaders(text){
             var headers = {};

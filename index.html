@@ -202,7 +202,7 @@
                     <div class="card-header text-light font-weight-bold">
                         <div class="row mr-3">
                             <h2 class="col-md-8 mb-0">Respuesta</h2>
-                            <div class="card col-md-4 text-right mb-0 text-light" :class="error? 'bg-danger' : 'bg-success'">
+                            <div class="card col-md-4 text-right mb-0 text-light" v-bind:class="[error ? 'bg-danger' : '', 'bg-success']">
                                 <div class="card-body p-1 text-center">{{getEstado()}}</div>
                             </div>
                         </div>
