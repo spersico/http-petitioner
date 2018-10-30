@@ -1,5 +1,6 @@
 # http-petitioner - Generador de peticiones HTTP
 
-
-http://ionicons.com/
-Bootstrap4
+Resources:
+- Vue2
+- http://ionicons.com/
+- Bootstrap4
